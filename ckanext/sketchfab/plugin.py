@@ -49,11 +49,14 @@ class SketchfabPlugin(p.SingletonPlugin):
         # or defaults to use the resource URL
         model_url = data_dict['resource_view'].get('model_url') or data_dict['resource'].get('url')
 
+        # Replace embed if it exists - added in template anyway
+        model_url = re.sub('/embed$', '', model_url)
+
         return {
             'defaults': {
                 'width': 940,
                 'height': 600
             },
-            # Replace embed if it exists - added in template anyway
-            'model_url': model_url.rstrip('/embed')
+
+            'model_url': model_url
         }
