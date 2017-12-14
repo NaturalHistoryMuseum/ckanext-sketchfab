@@ -1,0 +1,6 @@
+{% import 'macros/form.html' as form %}
+
+{{ form.input('model_url', id='field-model_url', label=_('Model url'), placeholder=_('eg. https://sketchfab.com/models/56cad56772204f11bf98020bbc390904  (if blank uses resource url)'), value=data.model_url, error=errors.model_url, classes=['control-full', 'control-large']) }}
+
+{{ form.input('width', id='field-width', label=_('Width'), value=(data.width or defaults['width']), error=errors.width) }}
+{{ form.input('height', id='field-height', label=_('height'), value=(data.height or defaults['height']), error=errors.height) }}
