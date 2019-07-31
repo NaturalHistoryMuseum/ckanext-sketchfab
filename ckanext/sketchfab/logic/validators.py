@@ -5,11 +5,8 @@
 # Created by the Natural History Museum in London, UK
 
 import re
-from ckan.common import _
-import ckan.lib.navl.dictization_functions as df
 
-Invalid = df.Invalid
-Missing = df.Missing
+from ckan.plugins import toolkit
 
 
 def is_valid_sketchfab_url(value, context):
@@ -25,4 +22,4 @@ def is_valid_sketchfab_url(value, context):
     if re.search(pattern, value, re.IGNORECASE):
         return value
 
-    raise Invalid(_(u'Not a valid Sketchfab model URL'))
+    raise toolkit.Invalid(toolkit._(u'Not a valid Sketchfab model URL'))
