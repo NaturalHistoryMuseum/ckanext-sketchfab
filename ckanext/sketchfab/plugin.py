@@ -16,18 +16,22 @@ is_positive_integer = p.toolkit.get_validator(u'is_positive_integer')
 
 
 class SketchfabPlugin(p.SingletonPlugin):
-    '''
-    Resource view for embedding sketchfab models
-    '''
+    '''Resource view for embedding sketchfab models'''
 
     p.implements(p.IConfigurer, inherit=True)
     p.implements(p.IResourceView, inherit=True)
     p.implements(p.IPackageController, inherit=True)
 
     def update_config(self, config):
+        '''
+
+        :param config: 
+
+        '''
         p.toolkit.add_template_directory(config, u'theme/templates')
 
     def info(self):
+        ''' '''
         return {u'name': u'sketchfab',
                 u'title': u'Sketchfab model',
                 u'schema': {
@@ -39,17 +43,39 @@ class SketchfabPlugin(p.SingletonPlugin):
                 u'icon': u'asterisk'}
 
     def can_view(self, data_dict):
+        '''
+
+        :param data_dict: 
+
+        '''
         # Can be added to all resources, regardless of data type
         return True
 
     def view_template(self, context, data_dict):
+        '''
+
+        :param context: 
+        :param data_dict: 
+
+        '''
         return u'sketchfab_view.html'
 
     def form_template(self, context, data_dict):
+        '''
+
+        :param context: 
+        :param data_dict: 
+
+        '''
         return u'sketchfab_form.html'
 
     def setup_template_variables(self, context, data_dict):
-        '''Setup variables available to templates'''
+        '''Setup variables available to templates
+
+        :param context: 
+        :param data_dict: 
+
+        '''
 
         # Model URL can either be specified in the view,
         # or defaults to use the resource URL

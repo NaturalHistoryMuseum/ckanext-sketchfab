@@ -13,14 +13,12 @@ Missing = df.Missing
 
 
 def is_valid_sketchfab_url(value, context):
-    '''
-    Validate Sketchfab URL
-    @param value:
-    @type value:
-    @param context:
-    @type context:
-    @return:
-    @rtype:
+    '''Validate Sketchfab URL
+
+    :param value:
+    :param context:
+    :returns:
+
     '''
 
     pattern = u'http[s]?:\/\/[w+3.]?sketchfab.com\/models\/[0-9a-z]+'

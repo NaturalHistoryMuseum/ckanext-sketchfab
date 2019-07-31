@@ -19,8 +19,10 @@ import ckan.tests as tests
 
 
 class TestSketchfabView(tests.WsgiAppCase):
+    ''' '''
     @classmethod
     def setup_class(cls):
+        ''' '''
         cls.config_templates = config[u'ckan.legacy_templates']
         config[u'ckan.legacy_templates'] = u'false'
         wsgiapp = middleware.make_app(config[u'global_conf'], **config)
@@ -49,12 +51,14 @@ class TestSketchfabView(tests.WsgiAppCase):
             context, cls.resource_view)
 
     def test_model_url_is_shown(self):
+        ''' '''
         url = h.url_for(controller=u'package', action=u'resource_read',
                         id=self.package.name, resource_id=self.resource_id)
         result = self.app.get(url)
         assert self.resource_view[u'model_url'] in result
 
     def test_title_description_iframe_shown(self):
+        ''' '''
         url = h.url_for(controller=u'package', action=u'resource_read', id=self.package.name, resource_id=self.resource_id)
         result = self.app.get(url)
         assert self.resource_view[u'title'] in result
@@ -62,6 +66,7 @@ class TestSketchfabView(tests.WsgiAppCase):
         assert u'iframe' in result.body
 
     def test_iframe_attributes(self):
+        ''' '''
         url = h.url_for(controller=u'package', action=u'resource_read', id=self.package.name, resource_id=self.resource_id)
         result = self.app.get(url)
         assert u'width="%s"' % self.resource_view[u'width'] in result
