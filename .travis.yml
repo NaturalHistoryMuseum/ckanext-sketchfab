@@ -1,0 +1,16 @@
+dist: trusty
+language: python
+
+python:
+  - "2.7"
+
+install:
+  - sh ckanext/sketchfab/tests/bin/build.sh
+
+services:
+  - redis-server
+  - postgresql
+
+script: coverage run --source=ckanext.sketchfab setup.py nosetests --ckan --with-pylons=ckanext/sketchfab/tests/bin/test.ini
+
+after_success: coveralls
