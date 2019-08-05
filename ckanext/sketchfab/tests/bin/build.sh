@@ -11,6 +11,7 @@ sudo tar xzf /tmp/solr.tgz -C /solr
 sudo /solr/solr-5.5.4/bin/solr start
 sudo /solr/solr-5.5.4/bin/solr create_core -c ckan
 sudo cp /ckan/ckan/config/solr/schema.xml /solr/solr-5.5.4/server/solr/ckan/conf/
+sudo wget -O /solr/solr-5.5.4/server/solr/ckan/conf/solrconfig.xml $SOLR_CONFIG_URL
 sudo /solr/solr-5.5.4/bin/solr restart
 
 cd /ckan
