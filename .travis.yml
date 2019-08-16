@@ -11,6 +11,9 @@ services:
   - redis-server
   - postgresql
 
-script: coverage run --source=ckanext.sketchfab setup.py nosetests --ckan --with-pylons=ckanext/sketchfab/tests/bin/test.ini
+addons:
+  postgresql: "9.4"
+
+script: coverage run --source=ckanext.sketchfab setup.py nosetests --ckan --with-pylons=ckanext/sketchfab/tests/bin/test.ini --nologcapture --debug=ckantest,ckanext.sketchfab --rednose
 
 after_success: coveralls
