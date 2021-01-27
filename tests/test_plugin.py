@@ -1,5 +1,5 @@
 from ckanext.sketchfab.plugin import SketchfabPlugin
-from mock import MagicMock
+from unittest.mock import MagicMock
 
 
 def test_always_visible():

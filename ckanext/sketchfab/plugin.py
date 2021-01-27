@@ -5,16 +5,15 @@
 # Created by the Natural History Museum in London, UK
 
 import logging
-
 import re
-from ckanext.sketchfab.logic.validators import is_valid_sketchfab_url
 
 from ckan.plugins import SingletonPlugin, implements, interfaces, toolkit
+from ckanext.sketchfab.logic.validators import is_valid_sketchfab_url
 
 log = logging.getLogger(__name__)
-ignore_empty = toolkit.get_validator(u'ignore_empty')
-not_empty = toolkit.get_validator(u'not_empty')
-is_positive_integer = toolkit.get_validator(u'is_positive_integer')
+ignore_empty = toolkit.get_validator('ignore_empty')
+not_empty = toolkit.get_validator('not_empty')
+is_positive_integer = toolkit.get_validator('is_positive_integer')
 
 
 class SketchfabPlugin(SingletonPlugin):
@@ -30,21 +29,21 @@ class SketchfabPlugin(SingletonPlugin):
         :param config:
 
         '''
-        toolkit.add_template_directory(config, u'theme/templates')
+        toolkit.add_template_directory(config, 'theme/templates')
 
     def info(self):
         ''' '''
         return {
-            u'name': u'sketchfab',
-            u'title': u'Sketchfab model',
-            u'schema': {
-                u'model_url': [ignore_empty, unicode, is_valid_sketchfab_url],
-                u'width': [not_empty, is_positive_integer],
-                u'height': [not_empty, is_positive_integer],
-                },
-            u'iframed': False,
-            u'icon': u'asterisk'
-            }
+            'name': 'sketchfab',
+            'title': 'Sketchfab model',
+            'schema': {
+                'model_url': [ignore_empty, str, is_valid_sketchfab_url],
+                'width': [not_empty, is_positive_integer],
+                'height': [not_empty, is_positive_integer],
+            },
+            'iframed': False,
+            'icon': 'asterisk'
+        }
 
     def can_view(self, data_dict):
         '''
@@ -62,7 +61,7 @@ class SketchfabPlugin(SingletonPlugin):
         :param data_dict:
 
         '''
-        return u'sketchfab_view.html'
+        return 'sketchfab_view.html'
 
     def form_template(self, context, data_dict):
         '''
@@ -71,7 +70,7 @@ class SketchfabPlugin(SingletonPlugin):
         :param data_dict:
 
         '''
-        return u'sketchfab_form.html'
+        return 'sketchfab_form.html'
 
     def setup_template_variables(self, context, data_dict):
         '''Setup variables available to templates
@@ -83,17 +82,16 @@ class SketchfabPlugin(SingletonPlugin):
 
         # Model URL can either be specified in the view,
         # or defaults to use the resource URL
-        model_url = data_dict[u'resource_view'].get(u'model_url') or data_dict[u'resource'].get(
-            u'url')
+        model_url = data_dict['resource_view'].get('model_url') or data_dict['resource'].get('url')
 
         # Replace embed if it exists - added in template anyway
-        model_url = re.sub('/embed$', u'', model_url)
+        model_url = re.sub('/embed$', '', model_url)
 
         return {
-            u'defaults': {
-                u'width': 940,
-                u'height': 600
-                },
+            'defaults': {
+                'width': 940,
+                'height': 600
+            },
 
-            u'model_url': model_url
-            }
+            'model_url': model_url
+        }

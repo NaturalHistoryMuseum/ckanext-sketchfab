@@ -8,9 +8,9 @@ from ckan.lib.helpers import url_for
 from ckan.tests import factories
 
 
-@pytest.mark.filterwarnings(u'ignore::sqlalchemy.exc.SADeprecationWarning')
-@pytest.mark.ckan_config(u'ckan.plugins', u'sketchfab')
-@pytest.mark.usefixtures(u'clean_db', u'with_plugins', u'with_request_context')
+@pytest.mark.filterwarnings('ignore::sqlalchemy.exc.SADeprecationWarning')
+@pytest.mark.ckan_config('ckan.plugins', 'sketchfab')
+@pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context')
 class TestSketchfabView(object):
 
     @pytest.fixture
@@ -19,35 +19,35 @@ class TestSketchfabView(object):
 
     @pytest.fixture
     def resource(self, package):
-        return factories.Resource(package_id=package[u'id'])
+        return factories.Resource(package_id=package['id'])
 
     @pytest.fixture
     def resource_view(self, resource):
         resource_view = factories.ResourceView(
-            resource_id=resource[u'id'],
-            view_type=u'sketchfab',
-            title=u'Image View',
-            description=u'A nice view',
+            resource_id=resource['id'],
+            view_type='sketchfab',
+            title='Image View',
+            description='A nice view',
             width=200,
             height=400,
-            model_url=u'https://sketchfab.com/models/f157e030b89b4682bcc6ea808533c823'
+            model_url='https://sketchfab.com/models/f157e030b89b4682bcc6ea808533c823'
         )
         return resource_view
 
     def test_model_url_is_shown(self, package, resource, resource_view, app):
-        url = url_for(u'resource.read', id=package[u'name'], resource_id=resource[u'id'])
+        url = url_for('resource.read', id=package['name'], resource_id=resource['id'])
         result = app.get(url)
-        assert resource_view[u'model_url'] in result
+        assert resource_view['model_url'] in result
 
     def test_title_description_iframe_shown(self, package, resource, resource_view, app):
-        url = url_for(u'resource.read', id=package[u'name'], resource_id=resource[u'id'])
+        url = url_for('resource.read', id=package['name'], resource_id=resource['id'])
         result = app.get(url)
-        assert resource_view[u'title'] in result
-        assert resource_view[u'description'] in result
-        assert u'iframe' in result
+        assert resource_view['title'] in result
+        assert resource_view['description'] in result
+        assert 'iframe' in result
 
     def test_iframe_attributes(self, package, resource, resource_view, app):
-        url = url_for(u'resource.read', id=package[u'name'], resource_id=resource[u'id'])
+        url = url_for('resource.read', id=package['name'], resource_id=resource['id'])
         result = app.get(url)
-        assert u'width="%s"' % resource_view[u'width'] in result
-        assert u'height="%s"' % resource_view[u'height'] in result
+        assert 'width="%s"' % resource_view['width'] in result
+        assert 'height="%s"' % resource_view['height'] in result
