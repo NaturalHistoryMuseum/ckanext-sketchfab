@@ -12,7 +12,6 @@ from ckan.tests import factories
 @pytest.mark.ckan_config('ckan.plugins', 'sketchfab')
 @pytest.mark.usefixtures('clean_db', 'with_plugins', 'with_request_context')
 class TestSketchfabView(object):
-
     @pytest.fixture
     def package(self):
         return factories.Dataset()
@@ -30,7 +29,7 @@ class TestSketchfabView(object):
             description='A nice view',
             width=200,
             height=400,
-            model_url='https://sketchfab.com/models/f157e030b89b4682bcc6ea808533c823'
+            model_url='https://sketchfab.com/models/f157e030b89b4682bcc6ea808533c823',
         )
         return resource_view
 
@@ -39,7 +38,9 @@ class TestSketchfabView(object):
         result = app.get(url)
         assert resource_view['model_url'] in result
 
-    def test_title_description_iframe_shown(self, package, resource, resource_view, app):
+    def test_title_description_iframe_shown(
+        self, package, resource, resource_view, app
+    ):
         url = url_for('resource.read', id=package['name'], resource_id=resource['id'])
         result = app.get(url)
         assert resource_view['title'] in result
