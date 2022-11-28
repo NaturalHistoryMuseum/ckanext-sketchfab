@@ -10,12 +10,13 @@ from ckan.plugins import toolkit
 
 
 def is_valid_sketchfab_url(value, context):
-    '''Validate Sketchfab URL
+    """
+    Validate Sketchfab URL.
 
     :param value:
     :param context:
     :returns:
-    '''
+    """
     pattern = 'http[s]?:\/\/[w+3.]?sketchfab.com\/models\/[0-9a-z]+'
     if re.search(pattern, value, re.IGNORECASE):
         return value

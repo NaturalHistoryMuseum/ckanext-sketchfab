@@ -17,22 +17,18 @@ is_positive_integer = toolkit.get_validator('is_positive_integer')
 
 
 class SketchfabPlugin(SingletonPlugin):
-    '''Resource view for embedding sketchfab models'''
+    """
+    Resource view for embedding sketchfab models.
+    """
 
     implements(interfaces.IConfigurer, inherit=True)
     implements(interfaces.IResourceView, inherit=True)
     implements(interfaces.IPackageController, inherit=True)
 
     def update_config(self, config):
-        '''
-
-        :param config:
-
-        '''
         toolkit.add_template_directory(config, 'theme/templates')
 
     def info(self):
-        ''' '''
         return {
             'name': 'sketchfab',
             'title': 'Sketchfab model',
@@ -42,56 +38,31 @@ class SketchfabPlugin(SingletonPlugin):
                 'height': [not_empty, is_positive_integer],
             },
             'iframed': False,
-            'icon': 'asterisk'
+            'icon': 'asterisk',
         }
 
     def can_view(self, data_dict):
-        '''
-
-        :param data_dict:
-
-        '''
         # Can be added to all resources, regardless of data type
         return True
 
     def view_template(self, context, data_dict):
-        '''
-
-        :param context:
-        :param data_dict:
-
-        '''
         return 'sketchfab_view.html'
 
     def form_template(self, context, data_dict):
-        '''
-
-        :param context:
-        :param data_dict:
-
-        '''
         return 'sketchfab_form.html'
 
     def setup_template_variables(self, context, data_dict):
-        '''Setup variables available to templates
-
-        :param context:
-        :param data_dict:
-
-        '''
+        """
+        Setup variables available to templates.
+        """
 
         # Model URL can either be specified in the view,
         # or defaults to use the resource URL
-        model_url = data_dict['resource_view'].get('model_url') or data_dict['resource'].get('url')
+        model_url = data_dict['resource_view'].get('model_url') or data_dict[
+            'resource'
+        ].get('url')
 
         # Replace embed if it exists - added in template anyway
         model_url = re.sub('/embed$', '', model_url)
 
-        return {
-            'defaults': {
-                'width': 940,
-                'height': 600
-            },
-
-            'model_url': model_url
-        }
+        return {'defaults': {'width': 940, 'height': 600}, 'model_url': model_url}
