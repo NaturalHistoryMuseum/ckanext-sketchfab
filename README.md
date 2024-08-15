@@ -89,7 +89,7 @@ To run the tests against ckan 2.9.x on Python3:
 
 1. Build the required images:
    ```shell
-   docker-compose build
+   docker compose build
    ```
 
 2. Then run the tests.
@@ -97,7 +97,7 @@ To run the tests against ckan 2.9.x on Python3:
    configuration, so you should only need to rebuild the ckan image if you change the extension's
    dependencies.
    ```shell
-   docker-compose run ckan
+   docker compose run ckan
    ```
 
 <!--testing-end-->
