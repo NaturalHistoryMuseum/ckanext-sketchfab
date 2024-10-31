@@ -8,6 +8,7 @@ import logging
 import re
 
 from ckan.plugins import SingletonPlugin, implements, interfaces, toolkit
+
 from ckanext.sketchfab.logic.validators import is_valid_sketchfab_url
 
 log = logging.getLogger(__name__)
