@@ -56,7 +56,6 @@ class SketchfabPlugin(SingletonPlugin):
         """
         Setup variables available to templates.
         """
-
         # Model URL can either be specified in the view,
         # or defaults to use the resource URL
         model_url = data_dict['resource_view'].get('model_url') or data_dict[
